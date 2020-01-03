@@ -1,0 +1,7 @@
+<config xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="admin">
+        <route id="kiyoh" frontName="kiyoh">
+            <module name="Alps_Kiyoh" before="Magento_Backend" />
+        </route>
+    </router>
+</config>

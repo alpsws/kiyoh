@@ -1,0 +1,33 @@
+<?php
+	/** @var \Alps\Kiyoh\Block\Kiyoh $block */
+	$allcollection = array();
+	$allcollection = $this->getCustomerReview();
+	$maxrating = $this->getMaxrating();
+    $total_score = (isset($allcollection[0]['company_total_score'])) ? $allcollection[0]['company_total_score'] : "";
+    $total_reviews = (isset($allcollection[0]['total_reviews'])) ? $allcollection[0]['total_reviews'] : "";
+    $url = (isset($allcollection[0]['company_url'])) ? $allcollection[0]['company_url'] : "";    
+	$rating_percentage ="";
+	if(isset($allcollection[0]['company_total_score'])){
+        $rating = floatval($allcollection[0]['company_total_score']);
+        $rating_percentage = $rating*10;
+    }
+?>
+<?php if($allcollection) : ?>
+	<div class="kiyoh-snippets">
+		<h3><?= $this->getTitle(); ?></h3>
+	    <div class="rating-box">
+	        <div class="rating" style="width:<?= $rating_percentage;?>%"></div>
+	    </div>
+	    <div class="kiyoh-schema" itemscope="itemscope" itemtype="http://schema.org/WebPage">
+	        <div itemprop="aggregateRating" itemscope="itemscope" itemtype="http://schema.org/AggregateRating">
+	            <meta itemprop="bestRating" content="<?= $maxrating;?>">
+	            <p>
+	                <a href="<?= $url;?>" target="_blank" class="kiyoh-link">
+	                    <?= __('Rating')?> <span itemprop="ratingValue"><?= $total_score;?></span> <?= __('out of %1, based on',$maxrating)?> <span itemprop="ratingCount"><?= $total_reviews;?></span> <?= __('customer reviews');?>
+	                </a>                
+	            </p>
+	            <img src="<?= $this->getViewFileUrl('Alps_Kiyoh::images/icon-kiyoh.png'); ?>" alt="kiyoh icon"  width="55" height="55"/>
+	        </div>
+	    </div>
+	</div>
+<?php endif; ?>

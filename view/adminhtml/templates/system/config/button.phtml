@@ -1,0 +1,43 @@
+<?php   /** @var \Alps\Kiyoh\Block\System\Config\Button $block */ ?>
+
+<script>
+require([
+    'jquery',
+    'prototype',
+], function(jQuery){
+     var kiyohId = jQuery('#kiyoh_id');
+ 
+        jQuery('#btnid').click(function () {
+            var params = {};
+            new Ajax.Request('<?php echo $block->getAjaxUrl() ?>', {
+                parameters:     params,
+                loaderArea:     false,
+                asynchronous:   true,
+                onCreate: function() {
+                    kiyohId.find('.success-action').hide();
+                    kiyohId.find('.processing').show();
+                    jQuery('#collect_message_span').text('');
+                },
+                onSuccess: function(response) {
+                    kiyohId.find('.processing').hide();
+ 
+                    var resultText = '';
+                    if (response.status > 200) {
+                        resultText = response.statusText;
+                    } else {
+                        resultText = 'Success';
+                        kiyohId.find('.success-action').show();
+                    }
+                    jQuery('#kiyoh-message').text(resultText);
+                }
+            });
+        });
+});
+</script>
+ 
+<?php echo $block->getButtonHtml() ?>
+<span class="review-indicator" id="kiyoh_id">
+    <img class="processing" hidden="hidden" alt="processing" style="margin:0 5px" src="<?php echo $block->getViewFileUrl('images/process_spinner.gif') ?>"/>
+    <img class="success-action" hidden="hidden" alt="done" style="margin:-3px 5px" src="<?php echo $block->getViewFileUrl('images/rule_component_apply.gif') ?>"/>
+    <span id="kiyoh-message"></span>
+</span>

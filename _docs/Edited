@@ -1,0 +1,2 @@
+1. smb://192.168.2.5/dev/rubenh/magento233/app/code/Alps/Kiyoh/Cron/Kiyoh.php
+	Remove \Alps\Kiyoh\Model\KiyohFactory $gridFactory
